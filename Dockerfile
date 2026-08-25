@@ -1,12 +1,13 @@
-FROM tomcat:10.1-jdk17
 
-# 1. Xóa các ứng dụng mặc định của Tomcat
+FROM tomcat:10.1-jdk21-openjdk
+
+# 1. Xóa ứng dụng mặc định
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# 2. Copy toàn bộ giao diện (HTML, JSP, CSS) vào ROOT
+# 2. Copy giao diện vào ROOT
 COPY web/ /usr/local/tomcat/webapps/ROOT/
 
-# 3. Copy các file .class đã biên dịch vào WEB-INF/classes
+# 3. Copy file class đã biên dịch vào đúng vị trí
 COPY out/production/* /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/
 
 EXPOSE 8080
