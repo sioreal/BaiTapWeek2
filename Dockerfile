@@ -1,18 +1,13 @@
-# Step 1: Biên dịch Java và đóng gói WAR
-FROM eclipse-temurin:17-jdk AS builder
+# Step 1: Build bằng Maven
+FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
 COPY . .
+RUN mvn clean package -DskipTests
 
-# Biên dịch code Java và đóng gói file ROOT.war
-RUN mkdir -p web/WEB-INF/classes && \
-    javac -encoding UTF-8 -d web/WEB-INF/classes $(find src -name "*.java") -cp "$(find / -name '*.jar' | tr '\n' ':')" || true && \
-    mkdir -p target && \
-    jar -cvf target/ROOT.war -C web .
-
-# Step 2: Đưa vào Tomcat
+# Step 2: Chạy bằng Tomcat
 FROM tomcat:10.1-jdk17
 RUN rm -rf /usr/local/tomcat/webapps/*
-COPY --from=builder /app/target/ROOT.war /usr/local/tomcat/webapps/ROOT.war
+COPY --from=build /app/target/ROOT.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
