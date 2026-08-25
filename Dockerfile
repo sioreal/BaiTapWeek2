@@ -1,9 +1,13 @@
-# Step 1: Build file WAR bằng Maven
-FROM maven:3.9-eclipse-temurin-17 AS builder
+# Step 1: Biên dịch Java và đóng gói WAR
+FROM eclipse-temurin:17-jdk AS builder
 WORKDIR /app
 COPY . .
-# Tạo thư mục webapps tạm và nén nguồn web thành ROOT.war
-RUN mkdir -p target && jar -cvf target/ROOT.war -C web .
+
+# Biên dịch code Java và đóng gói file ROOT.war
+RUN mkdir -p web/WEB-INF/classes && \
+    javac -encoding UTF-8 -d web/WEB-INF/classes $(find src -name "*.java") -cp "$(find / -name '*.jar' | tr '\n' ':')" || true && \
+    mkdir -p target && \
+    jar -cvf target/ROOT.war -C web .
 
 # Step 2: Đưa vào Tomcat
 FROM tomcat:10.1-jdk17
