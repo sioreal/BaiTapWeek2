@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Murach's Java Servlets and JSP</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <img src="images/murachlogo.png" alt="Murach Logo" class="logo">
+    </header>
+    <h1>Survey</h1>
+    <p>If you have a moment, we'd appreciate it if you would fill out this survey.</p>
+
+    <form action="survey" method="post">
+        <input type="hidden" name="action" value="add">
+
+        <h2>Your information:</h2>
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <!-- Bộ chọn Ngày - Tháng - Năm -->
+        <div class="form-group">
+            <label>Date of Birth</label>
+            <div class="dob-group">
+                <select name="dobDay">
+                    <option value="">Ngày</option>
+                    <!-- Tạo từ ngày 1 tới 31 -->
+                    <script>
+                        for(let i=1; i<=31; i++) {
+                            document.write(`<option value="${i}">${i}</option>`);
+                        }
+                    </script>
+                </select>
+
+                <select name="dobMonth">
+                    <option value="">Tháng</option>
+                    <option value="1">Tháng 1</option>
+                    <option value="2">Tháng 2</option>
+                    <option value="3">Tháng 3</option>
+                    <option value="4">Tháng 4</option>
+                    <option value="5">Tháng 5</option>
+                    <option value="6">Tháng 6</option>
+                    <option value="7">Tháng 7</option>
+                    <option value="8">Tháng 8</option>
+                    <option value="9">Tháng 9</option>
+                    <option value="10">Tháng 10</option>
+                    <option value="11">Tháng 11</option>
+                    <option value="12">Tháng 12</option>
+                </select>
+
+                <input type="number" name="dobYear" placeholder="Năm (VD: 2000)" min="1900" max="2026">
+            </div>
+        </div>
+
+        <h2>How did you hear about us?</h2>
+        <div class="radio-group">
+            <label><input type="radio" name="hearFrom" value="Search engine" checked> Search engine</label>
+            <label><input type="radio" name="hearFrom" value="Word of mouth"> Word of mouth</label>
+            <label><input type="radio" name="hearFrom" value="Social Media"> Social Media</label>
+            <label><input type="radio" name="hearFrom" value="Other"> Other</label>
+        </div>
+
+        <h2>Would you like to receive announcements about new CDs and special offers?</h2>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="wantsUpdates" value="YES, I'd like that."> YES, I'd like that.</label><br>
+            <label><input type="checkbox" name="wantsEmailUpdates" value="YES, please send me email announcements."> YES, please send me email announcements.</label>
+        </div>
+
+        <div class="select-group">
+            <label for="contactMethod">Please contact me by:</label>
+            <select name="contactMethod" id="contactMethod">
+                <option value="Email or postal mail">Email or postal mail</option>
+                <option value="Email only">Email only</option>
+                <option value="Postal mail only">Postal mail only</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn-submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>
