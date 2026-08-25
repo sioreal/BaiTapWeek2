@@ -15,7 +15,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <!-- Khai báo thư mục code Java thuần của IntelliJ -->
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
     <build>
         <sourceDirectory>src</sourceDirectory>
         <finalName>ROOT</finalName>
@@ -26,17 +34,10 @@
                 <version>3.3.2</version>
                 <configuration>
                     <warSourceDirectory>web</warSourceDirectory>
+                    <!-- Thêm dòng này để Maven không bắt buộc phải có web.xml -->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
 </project>
